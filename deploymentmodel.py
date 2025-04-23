@@ -1,15 +1,17 @@
-concern uker DPSP:
--KIE : untuk dipastikan aman mengingat case sby
--KFMI : dipastikan penggunaan secondfloor aman/tidak?karena terafiliasi dengan DG, pembebanannya jangan terburu2 karena uker punya strategi masing2, optimalkan uang kas DPSP dengan menarik kas dr pegawai (1 tahun periode 2024)
--KITE : mendukung tempat yang tidak berafiliasi dengan pegawai BI, uang kas tidak cukup, di pro rata berdasarkan jumlah pegawai
--KSPR : bersedia dengan usulan RAB saat ini, uang souvenir pake uang dana kekaryawanan?
--UMI : coba usahakan mobil dinas
--KIM : bersedia dengan usulan RAB saat ini
--OFMI: 
--OSPR:optimalkan uang kas DPSP
--KIM :agar menggunakan dana kegiatan uker, dengan contoh farewell Pak Andi
-
-menutup opsi sumbangan KaDept
-siapa yang akan menalangi biaya acara di awal?
-ada opsi : transport berangkat di akomodir, pulang masing-masing
-all uker setuju dengan opsi penarikan kas DPSP tahun 2024
+import streamlit as st
+import joblib
+import numpy as np
+ 
+#Memuat model regresi linear yang sudah disimpan
+lin_reg_loaded = joblib.load('lin_reg_model.joblib')
+ 
+#judul aplikasi
+st.title("Prediksi Gaji Berdasarkan Lama Bekerja")
+ 
+#Input tahun pengalaman kerja
+years_experience = st.number_input("Masukkan jumlah tahun bekerja:", min_value=0.0, step=0.1)
+ 
+#Prediksi gaji
+if st.button("Prediksi Gaji"):
+    gaji = lin_reg_loaded.predict([[years_experience]])
+    st.write(f"Gaji seseorang setelah bekerja selama {years_experience} tahun adalah ${gaji[0]:,.2f}")
